@@ -1,11 +1,9 @@
-import React from 'react'
+import React from "react";
+import { Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  return (
-    <div>
-      Navbar
-    </div>
-  )
-}
+   return <Stack></Stack>;
+};
 
-export default Navbar
+export default Navbar;
