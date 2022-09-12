@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
 import { Video } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { CheckCircle } from "@mui/icons-material";
 
 const VideoDetail = () => {
    const { id } = useParams();
@@ -15,7 +16,7 @@ const VideoDetail = () => {
       );
    }, [id]);
 
-   if (!videoDetail) return;
+   if (!videoDetail?.snippet) return "Loading...";
 
    const {
       snippet: { channelId, channelTitle, title },
@@ -26,15 +27,46 @@ const VideoDetail = () => {
       <Box minHeight="95vh">
          <Stack direcction={{ xs: "column", md: "row" }}>
             <Box flex={1}>
-               <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
+               <Box sx={{ width: "100%", position: "sticky", top: "110px" }}>
                   <ReactPlayer
                      url={`https://www.youtube.com/watch?v=${id}`}
-                     className="react-playaer"
+                     className="react-player"
                      controls
                   />
                   <Typography color="#fff" variant="h5" fontWeight="bold">
                      {title}
                   </Typography>
+                  <Stack
+                     direction="row"
+                     justifyContent="space-between"
+                     color="#FFF"
+                     py={1}
+                     px={2}
+                  >
+                     <Link to={`/channel/${channelId}`}>
+                        <Typography
+                           varian={{ sm: "subtitle1", md: "h6" }}
+                           color="#FFF"
+                        >
+                           {channelTitle}
+                           <CheckCircle
+                              sx={{
+                                 fontSize: "12px",
+                                 color: "gray",
+                                 ml: "5px",
+                              }}
+                           />
+                        </Typography>
+                     </Link>
+                     <Stack direction="row" gap="16px" alignItems="center">
+                        <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                           {parseInt(viewCount).toLocaleString()} views
+                        </Typography>
+                        <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                           {parseInt(likeCount).toLocaleString()} views
+                        </Typography>
+                     </Stack>
+                  </Stack>
                </Box>
             </Box>
          </Stack>
